@@ -21,3 +21,21 @@ class Friend(models.Model):
             current_user = current_user
         )
         friend.users.remove(new_friend)
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(User)
+    receiver = models.ForeignKey(User, related_name = 'receiver')
+    text = models.CharField(max_length = 500)
+    read = models.BooleanField()
+    date = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return str(self.sender) + " -> " + str(self.receiver)
+
+
+
+
+
+
+    

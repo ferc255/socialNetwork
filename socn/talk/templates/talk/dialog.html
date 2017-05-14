@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<style>
+	div.container1
+	{
+		width:800px;
+		margin: auto;
+		border: 2px solid #FCFCFC;
+		background: #FCFCFC;
+	}
+
+	form
+	{
+		text-align: center;
+	}
+
+	div.unread
+	{
+		width: 800px;
+		border: 1px solid #DDDDFF;
+		background: #DDDDFF;
+	}
+
+	div.read
+	{
+		width: 800px;
+
+	}
+</style>
+	<div class="container1">
+		<p align="right">
+		<form method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<p align="center">
+				<button type="submit">Submit</button>
+			</p>
+		</p>
+		</form>
+
+		<p style="text-align:left;">
+		<font size="6" align="right">Me</font>
+		<span style="float:right;">
+		<font size="6">{{ friend }}</font>
+		</span>
+		</p>
+
+		{% for mes in messages %}
+		
+			{% if mes.read %}
+				<div class="read">
+			{% else %}
+				<div class="unread">
+			{% endif %}
+
+				{% if mes.sender == request.user %}
+					<p align="left">
+				{% else %}
+					<p align="right">
+				{% endif %}
+						<font size="3">{{ mes.text }}</font>
+					</p>
+				</div>
+				<br>
+
+		{% endfor %}
+									
+{% endblock %}
