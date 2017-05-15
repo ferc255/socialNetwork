@@ -99,8 +99,6 @@ class MessagesView(TemplateView):
         for it in dialogs:
             it[1] = lot[it[0]]
 
-        print(dialogs, '\n\n\n\n')
-
         args = {'dialogs': dialogs}
         return render(request, self.template_name, args)
             

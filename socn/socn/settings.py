@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'socn.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'socn.urls'
@@ -123,3 +124,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/talk/info/'
+
+ANON_URLS = \
+(
+    r'^account/login/$',
+    r'^account/register/$',
+)
