@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<style>
+	div.container2
+  {
+    width:600px;
+    margin: auto;
+	padding-left: 30px;
+    border: 2px solid #F0F0F0;
+    background: #FCFCFC;
+  }
+</style>
+
+	<div class="container2">
+		{% for dialog in dialogs %}
+			<a href="{% url 'talk:dialog' pk=dialog.0.pk %}">
+				<h3>
+					{{ dialog.0 }}
+					{% if dialog.1 > 0 %}
+						[{{ dialog.1 }}]
+					{% endif %}
+				</h3>
+					
+			</a>
+		{% endfor %}
+{% endblock %}

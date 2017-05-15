@@ -56,6 +56,6 @@ class RegisterView(TemplateView):
 
         if form.is_valid():
             form.save()
-            return redirect(reverse('accounts:view_profile'))
+            return redirect(reverse('talk:info'))
         else:
             return redirect(reverse('accounts:register'))

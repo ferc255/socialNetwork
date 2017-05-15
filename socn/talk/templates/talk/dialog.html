@@ -4,12 +4,13 @@
 <style>
 	div.container1
 	{
-		width:800px;
+		width:600px;
+		word-wrap: break-word;
 		margin: auto;
 		border: 2px solid #FCFCFC;
 		background: #FCFCFC;
 	}
-
+	
 	form
 	{
 		text-align: center;
@@ -17,15 +18,20 @@
 
 	div.unread
 	{
-		width: 800px;
+		width: 400px;
 		border: 1px solid #DDDDFF;
 		background: #DDDDFF;
+		margin-top: 10px;
+		border-radius: 5px;
 	}
 
 	div.read
 	{
-		width: 800px;
-
+		width: 400px;
+		border: 1px solid #FCFCFC;
+		background: #F8F0F0;
+		margin-top: 10px;
+		border-radius: 5px;
 	}
 </style>
 	<div class="container1">
@@ -47,22 +53,21 @@
 		</p>
 
 		{% for mes in messages %}
-		
+
+
 			{% if mes.read %}
-				<div class="read">
+				<div class="read"
 			{% else %}
-				<div class="unread">
+				<div class="unread"
 			{% endif %}
 
 				{% if mes.sender == request.user %}
-					<p align="left">
+					style="float:left"><p align="left">
 				{% else %}
-					<p align="right">
+					style="float:right"><p align="right">
 				{% endif %}
-						<font size="3">{{ mes.text }}</font>
-					</p>
+					<font size="3">{{ mes.text }}</font></p>
 				</div>
-				<br>
 
 		{% endfor %}
 									

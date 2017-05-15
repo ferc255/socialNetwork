@@ -13,7 +13,9 @@ class FriendsView(TemplateView):
 
     def get(self, request):
         users = User.objects.all().exclude(pk=request.user.pk)
-        friends = Friend.objects.get(current_user = request.user).users.all()
+        array1, created = Friend.objects.get_or_create\
+                  (current_user = request.user)
+        friends = array1.users.all()
 
         args = {'users': users, 'friends': friends}
         return render(request, self.template_name, args)
@@ -69,3 +71,37 @@ class DialogView(TemplateView):
             message.text = form.cleaned_data['message']
             message.save()
         return redirect(reverse('talk:dialog', kwargs={'pk': pk}))
+
+
+class MessagesView(TemplateView):
+    template_name = 'talk/messages.html'
+
+    def get(self, request):
+        lot = {}
+        dialogs = []
+        messages = Message.objects.filter(receiver = request.user) |\
+                   Message.objects.filter(sender = request.user)
+        messages = messages.order_by("-date")
+
+        for message in messages:
+            if message.sender == request.user:
+                friend = message.receiver
+            else:
+                friend = message.sender
+                
+            if not friend in lot:
+                lot[friend] = 0
+                dialogs.append([friend, 0])
+
+            if message.receiver == request.user and not message.read:
+                lot[friend] += 1
+
+        for it in dialogs:
+            it[1] = lot[it[0]]
+
+        print(dialogs, '\n\n\n\n')
+
+        args = {'dialogs': dialogs}
+        return render(request, self.template_name, args)
+            
+        

@@ -6,13 +6,15 @@
 			<h2>Friends</h2>
 			{% for friend in friends %}
 				<div class="btn-group">
-					<a href="{% url 'talk:connect' operation='remove' pk=friend.pk %}"
-						class="btn btn-default">
-						Remove
+					<a href="{% url 'talk:connect' operation='remove' pk=friend.pk %}">
+						<button type="button" class="btn btn-default">
+							Remove
+						</button>
 					</a>
-					<a href="{% url 'talk:dialog' pk=friend.pk %}"
-						 class="btn btn-default">
-						Chat
+					<a href="{% url 'talk:dialog' pk=friend.pk %}">
+						<button type="button" class="btn btn-default">
+							Chat
+						</button>
 					</a>
 				</div>
 				&emsp;
