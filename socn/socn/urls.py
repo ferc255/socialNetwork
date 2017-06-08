@@ -5,5 +5,5 @@ urlpatterns = \
 [
     url(r'^admin/', admin.site.urls),
     url(r'^account/', include('accounts.urls', namespace = 'accounts')),
-    url(r'^talk/', include('talk.urls', namespace = 'talk')),
+    url(r'^', include('talk.urls', namespace = 'talk')),
 ]

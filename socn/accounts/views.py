@@ -58,4 +58,6 @@ class RegisterView(TemplateView):
             form.save()
             return redirect(reverse('talk:info'))
         else:
-            return redirect(reverse('accounts:register'))
+            args = {'form': form}
+            return render(request, self.template_name, args)
+

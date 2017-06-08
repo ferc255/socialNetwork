@@ -136,7 +136,7 @@ MEDIA_ROOT = '/home/django/socialNetwork/socn/media/'
 
 STATIC_ROOT = '/home/django/socialNetwork/socn/static/'
 
-LOGIN_REDIRECT_URL = '/talk/info/'
+LOGIN_REDIRECT_URL = '/'
 
 ANON_URLS = \
 (
