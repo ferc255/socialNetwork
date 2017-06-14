@@ -4,5 +4,8 @@ from games import views
 urlpatterns = \
 [
     url(r'^snake/$', views.SnakeView.as_view(), name = 'snake'),
+    url(r'^tic5/$', views.Tic5View.as_view(), name = 'tic5'),
 ]
+
+
               

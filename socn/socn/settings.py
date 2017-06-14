@@ -23,14 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '77i52f1z_6*y_6^#s!rd*u^-f_=+^k)pvck4k*9uvjab2xv21u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    'tuna.com.ru',
-    'www.tuna.com.ru',
-    '37.140.197.29',
-    '37.140.197.29:80',
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -84,13 +79,9 @@ WSGI_APPLICATION = 'socn.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-  'default': {
-      'ENGINE': 'django.db.backends.postgresql_psycopg2',
-      'NAME': 'socn',
-      'USER': 'django',
-      'PASSWORD': 'django123456',
-      'HOST': 'localhost',
-      'PORT': '',
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -132,7 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/django/socialNetwork/socn/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_ROOT = '/home/django/socialNetwork/socn/media/'
 
@@ -143,3 +134,8 @@ ANON_URLS = \
     r'^account/login/$',
     r'^account/register/$',
 )
+
+STATICFILES_DIRS = \
+[
+    os.path.join(BASE_DIR, 'static/'),
+]

@@ -7,4 +7,12 @@ class SnakeView(TemplateView):
     def get(self, request):
         return render(request, self.template_name);
 
+class Tic5View(TemplateView):
+    template_name = 'games/tic5.html'
+    def get(self, request):
+        return render(request, self.template_name);
+
+
+
+                        
                             
