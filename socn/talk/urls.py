@@ -10,5 +10,4 @@ urlpatterns = \
     url(r'^dialog/(?P<pk>\d+)/$', views.DialogView.as_view(),
         name = 'dialog'),
     url(r'^messages/$', views.MessagesView.as_view(), name = 'messages'),
-    url(r'^snake/$', views.SnakeView.as_view(), name = 'snake'),
 ]

@@ -103,9 +103,3 @@ class MessagesView(TemplateView):
         return render(request, self.template_name, args)
             
         
-class SnakeView(TemplateView):
-        template_name = 'talk/snake.html'
-        def get(self, request):
-            return render(request, self.template_name);
-
-                        

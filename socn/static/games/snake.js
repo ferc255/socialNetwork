@@ -244,10 +244,10 @@ function draw()
                     ctx.fillStyle = "#fff";
                     break;
                 case SNAKE:
-                    ctx.fillStyle = "#08f";
+                    ctx.fillStyle = "#000";
                     break;
                 case FRUIT:
-                    ctx.fillStyle = "#0f0";
+                    ctx.fillStyle = "#ff0";
                     break;                
             }
             ctx.fillRect(x*tw, y*tw, tw, th);
