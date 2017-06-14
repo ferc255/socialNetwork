@@ -6,18 +6,14 @@ var CELL =
     O: 2,
 }
 //
-var ctx, canvas, grid;
+var ctx, canvas, grid, ended = false, last, chosen;
 
-function loop()
-{
-    
-}
 
-function drawX(x, y)
+function drawX(x, y, color)
 {
     ctx.beginPath();
     ctx.lineWidth = 2;
-    ctx.strokeStyle = "#0000FF";
+    ctx.strokeStyle = color;
     
     ctx.moveTo(x * CELLSIZE, y * CELLSIZE);
     ctx.lineTo((x + 1) * CELLSIZE, (y + 1) * CELLSIZE);
@@ -30,11 +26,11 @@ function drawX(x, y)
     ctx.closePath();
 }
 
-function drawO(x, y)
+function drawO(x, y, color)
 {
     ctx.beginPath();
     ctx.lineWidth = 2;
-    ctx.strokeStyle = "#0000FF";
+    ctx.strokeStyle = color;
 
     ctx.arc((x + 0.5) * CELLSIZE, (y + 0.5) * CELLSIZE, 0.5 * CELLSIZE, 0, 2 * Math.PI);
     ctx.stroke();
@@ -42,25 +38,83 @@ function drawO(x, y)
     ctx.closePath();
 }
 
-function AImove()
+
+function check_state(i, j, di, dj)
 {
-    var empty = [];
-    for (let i = 0; i < grid.length; i++)
+    var cnt = 0;
+    for (let k = 0; k < 5; k++)
     {
-        for (let j = 0; j < grid[i].length; j++)
+        if (grid[i + di*k][j + dj*k] === CELL.O)
         {
-            if (grid[i][j] === CELL.EMPTY)
-            {
-                empty.push({row: i, col: j});
-            }
+            return false;
+        }
+        if (grid[i + di*k][j + dj*k] === CELL.EMPTY)
+        {
+            cnt++;
+            chosen = {row:i + di*k, col:j + dj*k};
         }
     }
-    console.log("empty.length = ", empty.length);
 
-    var chosen = empty[Math.floor(Math.random() * empty.length)];
-    console.log("chosen = ", chosen);
+    return cnt <= 2;
+}
+
+
+function AImove()
+{
+    var found = false;
+    for (let i = 0; i < grid.length; i++)
+    {
+        for (let j = 0; j < grid.length; j++)
+        {
+            if (i + 4 < grid.length && check_state(i, j, 1, 0))
+            {
+                found = true;
+                break;
+            }                
+            if (j + 4 < grid[i].length && check_state(i, j, 0, 1))
+            {
+                found = true;
+                break;
+            }
+            if (i + 4 < grid.length && j + 4 < grid[i].length
+                && check_state(i, j, 1, 1))
+            {
+                found = true;
+                break;
+            }
+            if (i - 4 >= 0 && j + 4 < grid[i].length &&
+                check_state(i, j, -1, 1))
+            {
+                found = true;
+                break;
+            }
+        }
+        
+        if (found)
+        {
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        var empty = [];
+        for (let i = 0; i < grid.length; i++)
+        {
+            for (let j = 0; j < grid[i].length; j++)
+            {
+                if (grid[i][j] === CELL.EMPTY)
+                {
+                    empty.push({row: i, col: j});
+                }
+            }
+        }
+        chosen = empty[Math.floor(Math.random() * empty.length)];
+    } 
+    
     grid[chosen.row][chosen.col] = CELL.O;
-    drawO(chosen.col, chosen.row);
+    drawO(chosen.col, chosen.row, "#FF0000");
+    last = {row: chosen.row, col: chosen.col};
 }
 
 function count()
@@ -81,15 +135,109 @@ function count()
 
 function playerMove(row, col)
 {
-    console.log("cnt ", count());
     grid[row][col] = CELL.X;
-    console.log("cnt2 ", count());
-    drawX(col, row);
+    drawX(col, row, "#0000FF");
 }
+
+
+function finish(gameResult)
+{
+    ended = true;
+    var labelVerdict = document.createElement("h1");
+    labelVerdict.style.textAlign = "center";
+    var text = document.createTextNode(gameResult);
+    labelVerdict.appendChild(text);
+//    labelVerdict.text = "loool";
+//    document.body.appendChild(labelVerdict);
+    document.body.insertBefore(labelVerdict, canvas);
+}
+
+
+function check_iterate(i, j, di, dj)
+{
+    let found = false;
+    for (let k = 1; k <= 4; k++)
+    {
+        if (grid[i + di*k][j + dj*k] != grid[i][j])
+        {
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        drawO(last.col, last.row, "#0000FF");
+        for (let k = 0; k < 5; k++)
+        {
+            if (grid[i][j] === CELL.X)
+            {
+                drawX(j + dj*k, i + di*k, "#FF0000");
+            }
+            else
+            {
+                drawO(j + dj*k, i + di*k, "#FF0000");
+            }
+        }
+
+        if (grid[i][j] === CELL.X)
+        {
+            finish("You won!");
+        }
+        else
+        {
+            finish("You lost!");
+        }
+        return true;
+    }
+    return false;
+}
+
+
+function check()
+{
+    for (let i = 0; i < grid.length; i++)
+    {
+        for (let j = 0; j < grid[i].length; j++)
+        {
+            if (grid[i][j] != CELL.EMPTY)
+            {
+                if (i + 4 < grid.length && check_iterate(i, j, 1, 0))
+                {
+                    return;
+                }                
+                if (j + 4 < grid[i].length && check_iterate(i, j, 0, 1))
+                {
+                    return;
+                }
+                if (i + 4 < grid.length && j + 4 < grid[i].length
+                    && check_iterate(i, j, 1, 1))
+                {
+                   return;
+                }
+                if (i - 4 >= 0 && j + 4 < grid[i].length &&
+                    check_iterate(i, j, -1, 1))
+                {
+                    return;
+                }                        
+            }
+        }
+    }
+
+    if (count() === 0)
+    {
+        finish("Draw!");
+    }
+}
+
 
 function mouseClick(event)
 {
-    console.log(grid);
+    if (ended)
+    {
+        return;
+    }
+
     var x = event.pageX;
     var y = event.pageY;
     x -= canvas.offsetLeft;
@@ -98,15 +246,20 @@ function mouseClick(event)
     var col = Math.floor(x / CELLSIZE);
     var row = Math.floor(y / CELLSIZE);
 
-    console.log(row, col, grid[row][col]);
-    for (let i = 0; i < 5; i++)
-    {
-        console.log(grid[i][0]);
-    }
     if (grid[row][col] === CELL.EMPTY)
     {
+        if (typeof last !== "undefined")
+        {
+            drawO(last.col, last.row, "#0000FF");
+        }
         playerMove(row, col);
+        check();
+        if (ended)
+        {
+            return;
+        }
         AImove();
+        check();
     }
 }
 
@@ -142,9 +295,6 @@ function main()
     {
         grid[i] = Array(COLS).fill(CELL.EMPTY);
     }
-    console.log("grid.length = ", grid.length, "\ngrid[0].length = ", grid[0].length);
-    console.log(grid);
-
 }
 
 main();
