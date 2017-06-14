@@ -1,1 +1,2 @@
 *.pyc
+socn/deployment/uwsgi_err.log

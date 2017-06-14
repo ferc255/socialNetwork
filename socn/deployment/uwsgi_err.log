@@ -5525,3 +5525,70 @@ Wed Jun 14 08:40:35 2017 - [emperor] vassal /home/django/socialNetwork/socn/depl
 [pid: 28174|app: 0|req: 1/3] 37.144.168.36 () {44 vars in 828 bytes} [Wed Jun 14 08:40:39 2017] GET /friends/ => generated 4335 bytes in 61 msecs (HTTP/1.1 200) 4 headers in 124 bytes (1 switches on core 0)
 announcing my loyalty to the Emperor...
 Wed Jun 14 08:40:39 2017 - [emperor] vassal /home/django/socialNetwork/socn/deployment/socn_uwsgi.ini is now loyal
+*** Starting uWSGI 2.0.15 (64bit) on [Wed Jun 14 12:51:57 2017] ***
+compiled with version: 4.8.4 on 27 May 2017 17:09:46
+os: Linux-2.6.32-042stab123.2 #1 SMP Mon Apr 17 17:27:00 MSK 2017
+nodename: tuna
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** WARNING: you are running uWSGI without its master process manager ***
+your processes number limit is 514566
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+*** starting uWSGI Emperor ***
+*** has_emperor mode detected (fd: 5) ***
+[uWSGI] getting INI configuration from /home/django/socialNetwork/socn/deployment/socn_uwsgi.ini
+*** Starting uWSGI 2.0.15 (64bit) on [Wed Jun 14 12:51:57 2017] ***
+compiled with version: 4.8.4 on 27 May 2017 17:09:46
+os: Linux-2.6.32-042stab123.2 #1 SMP Mon Apr 17 17:27:00 MSK 2017
+nodename: tuna
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /home/django/socialNetwork/socn
+your processes number limit is 514566
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/django/socialNetwork/socn/uwsgi_nginx.sock fd 3
+Python version: 3.4.3 (default, Nov 17 2016, 01:12:14)  [GCC 4.8.4]
+Set PythonHome to /home/django/venv
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x19fff00
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 800448 bytes (781 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x19fff00 pid: 31036 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 31036)
+Wed Jun 14 12:51:58 2017 - [emperor] vassal /home/django/socialNetwork/socn/deployment/socn_uwsgi.ini has been spawned
+spawned uWSGI worker 1 (pid: 31039, cores: 1)
+spawned uWSGI worker 2 (pid: 31040, cores: 1)
+spawned uWSGI worker 3 (pid: 31041, cores: 1)
+spawned uWSGI worker 4 (pid: 31042, cores: 1)
+spawned uWSGI worker 5 (pid: 31043, cores: 1)
+spawned uWSGI worker 6 (pid: 31044, cores: 1)
+spawned uWSGI worker 7 (pid: 31045, cores: 1)
+spawned uWSGI worker 8 (pid: 31046, cores: 1)
+spawned uWSGI worker 9 (pid: 31047, cores: 1)
+spawned uWSGI worker 10 (pid: 31048, cores: 1)
+Wed Jun 14 12:51:58 2017 - [emperor] vassal /home/django/socialNetwork/socn/deployment/socn_uwsgi.ini is ready to accept requests
+[pid: 31042|app: 0|req: 1/1] 37.144.168.36 () {44 vars in 825 bytes} [Wed Jun 14 12:52:03 2017] GET /friends/ => generated 4345 bytes in 73 msecs (HTTP/1.1 200) 4 headers in 124 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+Wed Jun 14 12:52:03 2017 - [emperor] vassal /home/django/socialNetwork/socn/deployment/socn_uwsgi.ini is now loyal
+[pid: 31047|app: 0|req: 1/2] 37.144.168.36 () {44 vars in 829 bytes} [Wed Jun 14 12:52:06 2017] GET /game/tic5/ => generated 2967 bytes in 59 msecs (HTTP/1.1 200) 4 headers in 124 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+Wed Jun 14 12:52:06 2017 - [emperor] vassal /home/django/socialNetwork/socn/deployment/socn_uwsgi.ini is now loyal
