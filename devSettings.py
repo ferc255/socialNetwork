@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'socn.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'socn.urls'
@@ -121,6 +122,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/game')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-LOGIN_REDIRECT_URL = '/account/profile'
+MEDIA_ROOT = '/home/django/socialNetwork/socn/media/'
+
+LOGIN_REDIRECT_URL = '/'
+
+ANON_URLS = \
+(
+    r'^account/login/$',
+    r'^account/register/$',
+)
+
+STATICFILES_DIRS = \
+[
+    os.path.join(BASE_DIR, 'static/'),
+]
