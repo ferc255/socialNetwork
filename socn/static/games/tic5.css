@@ -1,7 +1,8 @@
+
 canvas
 {
     display: block;
-    position: relative;
+    position: absolute;//relative;
     //border: 1px solid #000;
     margin: auto;
     background-color: #F8F8FF;

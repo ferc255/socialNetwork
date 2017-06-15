@@ -1,99 +1,94 @@
 <html>
-	<head>
-		<link rel="stylesheet"
-					href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-					integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-					crossorigin="anonymous">
-		{% block head %}
-			<title>Social Network</title>
-		{% endblock %}
+  <head>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    
+    <meta charset="utf-8">
 
-	</head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base.css' %}">
 
-	<body>
-		<br>
-		<div class="container">
-      <!-- Static navbar -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-										data-toggle="collapse"
-										data-target="#navbar"
-										aria-expanded="false"
-										aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{% url 'talk:info' %}">Alex Network</a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-							{% if user.is_authenticated %}
-								<li><a href="{% url 'talk:messages' %}">
-										Messages</a>
-								</li>
-								<li><a href="{% url 'talk:friends' %}">
-										Friends</a>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown"
-										 role="button" aria-haspopup="true"
-										 aria-expanded="false">Profile
-										<span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="{% url 'accounts:view_profile' %}">
-												View</a>
-										</li>
-										<li><a href="{% url 'accounts:edit_profile' %}">
-												Edit</a>
-										</li>
-									</ul>									
-								</li>
+    <title>Aleks's Network</title>
+    {% block head %}
+    {% endblock %}
+  </head>
+  <body>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+    <script type="text/javascript" src="{% static 'base.js' %}"></script>
 
-                <li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown"
-										 role="button" aria-haspopup="true"
-										 aria-expanded="false">Games
-										<span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="{% url 'games:snake' %}">
-												Snake</a>
-										</li>
-										<li><a href="{% url 'games:tic5' %}">
-												Tic-Tac-5</a>
-										</li>
-									</ul>									
-								</li>
-							{% endif %}
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-							{% if user.is_authenticated %}
-								<p class="navbar-text">{{ user }}</p>
-  	            <li><a href="{% url 'accounts:logout' %}">Log out</a></li>
-							{% else %}
-								<li><a href="{% url 'accounts:register' %}">Register</a></li>
-								<li><a href="{% url 'accounts:login' %}">
-										Log in</a>
-								</li>
-							{% endif %}
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
-		</div>
+    <div class="header-div">
+      <p class="header-p"><a class="header-a" href="{% url 'talk:info' %}">A L E K S ' S</a><p>
+    </div>
+    <div class="middle">
+      <div class="middle-left">
+        <div class="my-navbar">
+          <ul class="navbar-ul">
+            {% if user.is_authenticated %}
+              <li><a class="navbar-a" href="{% url 'talk:messages' %}">Messages</a></li>
+              <li><a class="navbar-a" href="{% url 'talk:friends' %}">Friends</a></li>
+              
+              <div class="dropdown">
+                <a class="navbar-a" onclick="myfunc(this)">
+                  Profile<p style="float:right;" align="right">&#9662;</p>
+                </a>
+                <div class="dropdown-content">
+                  <li><a style="display: block;" class="navbar-a"
+                         href="{% url 'accounts:view_profile' %}">
+                      View</a>
+                  </li>
+                  <li><a style="display: block;" class="navbar-a"
+                         href="{% url 'accounts:edit_profile' %}">
+                      Edit</a>
+                  </li>
+                </div>
+              </div>
 
-		{% block body %}
-			<h1>Base</h1>
-		{% endblock %}
-	</body>
+              <div class="dropdown">
+                <a class="navbar-a" id="lah" onclick="myfunc(this)">
+                  Games<p style="float:right;" align="right">&#8711;</p>
+                </a>
+                <div class="dropdown-content">
+                  <li><a style="display: block;" class="navbar-a"
+                         href="{% url 'games:snake' %}">
+                      Snake</a>
+                  </li>
+                  <li><a style="display: block;" class="navbar-a"
+                         href="{% url 'games:tic5' %}">
+                      Five-in-a-line</a>
+                  </li>
+                </div>
+              </div>
+              <br><br><br><br>
+              <li><a class="navbar-a" href="{% url 'accounts:logout' %}">
+                  Log out</a>
+              </li>
+            {% else %}
+              <li><a class="navbar-a" href="{% url 'accounts:register' %}">
+                  Register</a>
+              </li>
+              <li><a class="navbar-a" href="{% url 'accounts:login' %}">
+                  Log in</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+        
+      <div class="middle-right">
+        {% block body %}
+        <h1>BODY PATTERN</h1>
+        {% endblock %}
+      </div>      
+    </div>
+    
+  </body>
 
-	<script src="http://code.jquery.com/jquery-3.2.1.min.js"
-					integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-					crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-					integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-					crossorigin="anonymous"></script>
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js"
+          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+          integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+          crossorigin="anonymous"></script>
 </html>
