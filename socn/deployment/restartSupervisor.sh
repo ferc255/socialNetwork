@@ -4,4 +4,4 @@ sleep 2
 sudo touch socn_uwsgi.ini
 sleep 1
 sudo service supervisor start
-sleep 1
+sleep 2
