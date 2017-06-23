@@ -56,7 +56,7 @@ class RegisterView(TemplateView):
 
         if form.is_valid():
             form.save()
-            return redirect(reverse('talk:info'))
+            return redirect(reverse('accounts:login'))
         else:
             args = {'form': form}
             return render(request, self.template_name, args)

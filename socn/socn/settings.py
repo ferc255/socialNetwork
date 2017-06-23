@@ -142,4 +142,12 @@ ANON_URLS = \
 (
     r'^account/login/$',
     r'^account/register/$',
+    r'^$',
 )
+
+LOGIN_EXEMPT_URLS = \
+[
+    r'^account/login/$',
+    r'^account/register/$',
+]
+
