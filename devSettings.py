@@ -78,12 +78,27 @@ WSGI_APPLICATION = 'socn.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
+"""
+DATABASES = {
+      'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'socndev',
+                'USER': 'alex',
+                'PASSWORD': '1',
+                'HOST': 'localhost',
+                'PORT': '',
+                      }
+    }
+"""
 
 
 # Password validation
@@ -133,7 +148,14 @@ ANON_URLS = \
 (
     r'^account/login/$',
     r'^account/register/$',
+    r'^$',
 )
+
+LOGIN_EXEMPT_URLS = \
+[
+    r'^account/login/$',
+    r'^account/register/$',
+]
 
 STATICFILES_DIRS = \
 [
