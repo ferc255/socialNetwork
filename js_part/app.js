@@ -33,11 +33,22 @@ function mypr(data)
     console.log('---------------------');
 }
 
-function allEmit(message, data)
+function allEmit()
 {
+    temp = [];
     for (var i in socket_list)
     {
-        socket_list[i].emit(message, data);
+        temp.push(
+        {
+            username: socket_list[i].username,
+            score: socket_list[i].score,
+        });
+    }
+    data = {'users': temp};
+    
+    for (var i in socket_list)
+    {
+        socket_list[i].emit('draw', data);
     }
 }
 
@@ -46,27 +57,15 @@ function allEmit(message, data)
 var io = require('socket.io')(serv, {});
 io.sockets.on('connection', function(socket)
 {
+    //console.log('new_connection');
     socket.emit('get_username', {}, function(result)
     {
-        //console.log(data);
-        //console.log(data.username);
-        console.log('result is found');
+        console.log('ajax result = ', result);
         socket.username = result;
-    });
-    
 
-    setTimeout(function()
-    {
-        socket.on('username_result', function(data)
-                  {
-                      console.log('fuck its not cool');
-                      console.log(data.username);
-                      socket.username = data.username
-                  });
-        
-        console.log('socket connection');
-
+        socket.secret_phrase = 'django_the_best';
         socket.id = idx++;
+        socket.score = 0;
         socket_list.push(socket);
 
         temp = []
@@ -75,22 +74,26 @@ io.sockets.on('connection', function(socket)
             temp.push(socket_list[i].username)
         }
 
-        console.log(temp);
-        allEmit('new_user',
-        {
-            'users': temp,
-            'count': temp.length,
-        });
-    }, 500);
-        /*
-    for (var i in socket_list)
-    {
-        socket_list[i].emit('update', {'cnt': socket_list.length});
-    }
-    //socket.emit('update', {cnt: Math.random()});
-    */
+        //console.log('temp =', temp);
+        allEmit();
+    });
 
-    
+    socket.on('new_point', function()
+    {
+        socket.score++;
+        allEmit();
+        if (socket.score == 5)
+        {
+            
+        }
+    });
+
+
+
+
+
+
+        
     socket.on('disconnect', function()
     {
         for (var i in socket_list)
@@ -101,21 +104,8 @@ io.sockets.on('connection', function(socket)
             }
         }
 
-        
-        temp = []
-        for (var i in socket_list)
-        {
-            temp.push(socket_list[i].username)
-        }
-
-        allEmit('new_user',
-        {
-            'users': temp,
-            'count': temp.length,
-        }); 
-    });
-    
-
+        allEmit();
+    }); 
 });
 
 

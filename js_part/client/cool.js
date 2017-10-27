@@ -1,7 +1,12 @@
-
 var canv = document.getElementById("canv");
 var ctx = canv.getContext("2d");
 
+document.addEventListener("click", new_click);
+
+function new_click()
+{
+    socket.emit('new_point');
+}
 
 var socket = io();
 
@@ -15,18 +20,28 @@ socket.on('update', function(data)
     ctx.fillText(data.cnt, 30, 30);
 });
 
-socket.on('new_user', function(data)
-{             
+
+var bombs = 0;
+socket.on('draw', function(data)
+{
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canv.width, canv.height);
     ctx.fillStyle = "black";
     ctx.font = "30px Arial";
     for (var i in data['users'])
     {
-        console.log(i);
-        ctx.fillText(data['users'][i], 30, 30 * i + 30);
+        ctx.fillText(data['users'][i].username, 30, 30 * i + 30);
+        ctx.fillText(data['users'][i].score, 300, 30 * i + 30);
     }
 });
+
+
+socket.on('fuck', function()
+{
+    console.log('fuck is recieved');
+});
+
+
 
 socket.on('get_username', function(data, cb) ///////////// function() ???
 {
