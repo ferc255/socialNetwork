@@ -4,8 +4,6 @@ var ctx = canv.getContext("2d");
 
 
 var socket = io();
-console.log("hi ok");
-
 
 socket.on('update', function(data)
 {
@@ -17,6 +15,52 @@ socket.on('update', function(data)
     ctx.fillText(data.cnt, 30, 30);
 });
 
+socket.on('new_user', function(data)
+{             
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canv.width, canv.height);
+    ctx.fillStyle = "black";
+    ctx.font = "30px Arial";
+    for (var i in data['users'])
+    {
+        console.log(i);
+        ctx.fillText(data['users'][i], 30, 30 * i + 30);
+    }
+});
+
+socket.on('get_username', function(data, cb) ///////////// function() ???
+{
+    $.ajax({
+        url: 'http://127.0.0.1:8000/game/myapi_username',
+        xhrFields:
+        {
+            withCredentials: true
+        },
+    })
+    .done(function(res) {        
+        console.log(res);
+        //socket.emit('username_result', {username: res['username']});
+        cb(res['username']);
+    })
+});
+
+function get_user()
+{
+    $.ajax({
+        url: 'http://127.0.0.1:8000/myapi_username',
+        xhrFields:
+        {
+            withCredentials: true
+        },
+    })
+    .done(function(res) {        
+        console.log(res);
+    })
+}
+
+
+
+    
 /*
 
 var ctx = document.getElementById("ctx").getContext("2d");

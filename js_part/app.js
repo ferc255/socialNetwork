@@ -1,4 +1,3 @@
-
 var express = require('express');
 var app = express();
 var serv = require('http').Server(app);
@@ -31,24 +30,65 @@ function mypr(data)
     {
         console.log(it, data[it].id);
     }
-       console.log('---------------------');
+    console.log('---------------------');
 }
+
+function allEmit(message, data)
+{
+    for (var i in socket_list)
+    {
+        socket_list[i].emit(message, data);
+    }
+}
+
+
 
 var io = require('socket.io')(serv, {});
 io.sockets.on('connection', function(socket)
 {
-    console.log('socket connection');
+    socket.emit('get_username', {}, function(result)
+    {
+        //console.log(data);
+        //console.log(data.username);
+        console.log('result is found');
+        socket.username = result;
+    });
+    
 
-    socket.id = idx++;
-    //console.log(idx);
-    socket_list.push(socket);
+    setTimeout(function()
+    {
+        socket.on('username_result', function(data)
+                  {
+                      console.log('fuck its not cool');
+                      console.log(data.username);
+                      socket.username = data.username
+                  });
+        
+        console.log('socket connection');
 
+        socket.id = idx++;
+        socket_list.push(socket);
+
+        temp = []
+        for (var i in socket_list)
+        {
+            temp.push(socket_list[i].username)
+        }
+
+        console.log(temp);
+        allEmit('new_user',
+        {
+            'users': temp,
+            'count': temp.length,
+        });
+    }, 500);
+        /*
     for (var i in socket_list)
     {
         socket_list[i].emit('update', {'cnt': socket_list.length});
     }
     //socket.emit('update', {cnt: Math.random()});
-    
+    */
 
     
     socket.on('disconnect', function()
@@ -56,15 +96,23 @@ io.sockets.on('connection', function(socket)
         for (var i in socket_list)
         {
             if (socket_list[i].id == socket.id)
+            {
                 socket_list.splice(i, 1);
+            }
         }
-        //console.log(socket_list);
-        //mypr(socket_list);
+
+        
+        temp = []
         for (var i in socket_list)
         {
-            socket_list[i].emit('update', {'cnt': socket_list.length});
+            temp.push(socket_list[i].username)
         }
-        console.log(socket_list.length);
+
+        allEmit('new_user',
+        {
+            'users': temp,
+            'count': temp.length,
+        }); 
     });
     
 
