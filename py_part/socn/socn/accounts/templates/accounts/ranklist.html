@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block body %}
+	<div class="container">
+		<h2>Profile</h2>
+		<p>Username: {{ user }}</p>
+		<p>First name: {{ user.first_name }}</p>
+		<p>Last name: {{ user.last_name }}</p>
+		<p>Email: {{ user.email }}</p>
+		<p>Age: {{ user.userprofile.age }}</p>
+		<p>City: {{ user.userprofile.city }}</p>
+
+    <style>
+      table, th, td
+      {
+        width: 100%;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      th, td
+      {
+        padding: 15px;
+      }
+    </style>
+
+    <table style="width: 100%; border: 1px solid black;
+                      border-collapse: collapse;padding: 15px;">
+      <tr>
+        <th>Name</th>
+        <th>Score</th>
+      </tr>
+    {% for user in users %}
+      <tr>
+        <td>{{ user }}</td>
+        <td>{{ user.userprofile.score }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+	</div>
+{% endblock %}
+	

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.http import JsonResponse, HttpResponse
+from django.contrib.auth.models import User
 import json
 from django.views.decorators.csrf import csrf_exempt
 
@@ -13,6 +14,12 @@ class Tic5View(TemplateView):
     template_name = 'games/tic5.html'
     def get(self, request):
         return render(request, self.template_name);
+
+
+def ranklist(request):
+    data = {'users': User.objects.all()}
+    return render(request, 'accounts/ranklist.html', data)
+
 
 @csrf_exempt
 def myapi(request, item):
@@ -28,8 +35,11 @@ def myapi(request, item):
         response["Access-Control-Allow-Credentials"] = "true"
         return response
     elif item == 'winner':
-        winner = json.loads(request.body.decode())['username']
-        print(winner)
+        winner_name = json.loads(request.body.decode())['username']
+        winner_obj = User.objects.get(username=winner_name)
+        winner_obj.userprofile.score += 1
+        winner_obj.userprofile.save()
+        print(winner_obj.userprofile.score, 2)
         response = JsonResponse({'status': 'OK'})
         response["Access-Control-Allow-Origin"] = "http://127.0.0.1:2000"
         response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"

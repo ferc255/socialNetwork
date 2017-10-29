@@ -71,10 +71,6 @@ socket.on('winner', function(data1)
         dataType: "json",
         data: data2,
         contentType: "text/plain",//"application/json",
-        //crossDomain: true,
-        //processData: false,
-        //json: true,
-        
         xhrFields:
         {
             withCredentials: true,
