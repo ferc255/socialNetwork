@@ -133,6 +133,8 @@ ANON_URLS = \
     r'^account/login/$',
     r'^account/register/$',
     r'^$',
+    r'^game/myapi_username/$',
+    #r'^game/myapi_winner/$',
 )
 
 LOGIN_EXEMPT_URLS = \
@@ -145,3 +147,25 @@ STATICFILES_DIRS = \
 [
     os.path.join(BASE_DIR, 'static/'),
 ]
+
+
+"""
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'withCredentials',
+)
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:2000',
+)
+"""

@@ -46,7 +46,7 @@ socket.on('fuck', function()
 socket.on('get_username', function(data, cb) ///////////// function() ???
 {
     $.ajax({
-        url: 'http://127.0.0.1:8000/game/myapi_username',
+        url: 'http://127.0.0.1:8000/game/myapi_username/',
         xhrFields:
         {
             withCredentials: true
@@ -59,19 +59,34 @@ socket.on('get_username', function(data, cb) ///////////// function() ???
     })
 });
 
-function get_user()
+
+socket.on('winner', function(data1)
 {
-    $.ajax({
-        url: 'http://127.0.0.1:8000/myapi_username',
+    console.log(JSON.stringify(data1));
+    data2 = JSON.stringify(data1);
+    $.ajax(
+    {
+        url: "http://127.0.0.1:8000/game/myapi_winner/",
+        type: "POST",
+        dataType: "json",
+        data: data2,
+        contentType: "text/plain",//"application/json",
+        //crossDomain: true,
+        //processData: false,
+        //json: true,
+        
         xhrFields:
         {
-            withCredentials: true
+            withCredentials: true,
         },
+        
     })
-    .done(function(res) {        
-        console.log(res);
-    })
-}
+    .done(function(response)
+    {
+        console.log('winner success');
+    });
+});
+         
 
 
 

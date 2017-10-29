@@ -76,16 +76,23 @@ io.sockets.on('connection', function(socket)
 
         //console.log('temp =', temp);
         allEmit();
-    });
+    });         
 
     socket.on('new_point', function()
     {
         socket.score++;
-        allEmit();
         if (socket.score == 5)
         {
-            
+            if (socket.username != "AnonymousUser")
+            {
+                socket.emit('winner', {username: socket.username});
+            }
+            for (var i in socket_list)
+            {
+                socket_list[i].score = 0;
+            }
         }
+        allEmit();
     });
 
 
