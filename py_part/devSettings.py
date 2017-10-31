@@ -32,9 +32,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = \
 [
-    'accounts',
-    'talk',
-    'games',
+    'socn.accounts',
+    'socn.talk',
+    'socn.games',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,28 +78,12 @@ WSGI_APPLICATION = 'socn.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
-"""
-DATABASES = {
-      'default': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'NAME': 'socndev',
-                'USER': 'alex',
-                'PASSWORD': '1',
-                'HOST': 'localhost',
-                'PORT': '',
-                      }
-    }
-"""
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -138,7 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+#STATIC_ROOT = '/home/django/socialNetwork/socn/static/'
 
 MEDIA_ROOT = '/home/django/socialNetwork/socn/media/'
 
@@ -149,6 +133,8 @@ ANON_URLS = \
     r'^account/login/$',
     r'^account/register/$',
     r'^$',
+    r'^game/myapi_username/$',
+    #r'^game/myapi_winner/$',
 )
 
 LOGIN_EXEMPT_URLS = \

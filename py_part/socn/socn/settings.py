@@ -25,7 +25,10 @@ SECRET_KEY = '77i52f1z_6*y_6^#s!rd*u^-f_=+^k)pvck4k*9uvjab2xv21u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'tuna.com.ru',
+    'www.tuna.com.ru',
+]
 
 
 # Application definition
@@ -80,8 +83,12 @@ WSGI_APPLICATION = 'socn.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'socn',
+        'USER': 'alexsql',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -122,9 +129,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = '/home/django/socialNetwork/socn/static/'
+STATIC_ROOT = '/home/aleksey/socialnetwork/py_part/socn/static/'
 
-MEDIA_ROOT = '/home/django/socialNetwork/socn/media/'
+MEDIA_ROOT = '/home/aleksey/socialnetwork/py_part/socn/media/'
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -143,29 +150,10 @@ LOGIN_EXEMPT_URLS = \
     r'^account/register/$',
 ]
 
+"""
 STATICFILES_DIRS = \
 [
     os.path.join(BASE_DIR, 'static/'),
 ]
-
-
 """
-CORS_ALLOW_HEADERS = (
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-    'withCredentials',
-)
 
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    'http://127.0.0.1:2000',
-)
-"""
