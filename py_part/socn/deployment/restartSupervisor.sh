@@ -1,7 +1,11 @@
 #!/bin/bash
+echo "Supervisor is been stopping..."
 sudo service supervisor stop
+echo "Supervisor is stoped"
 sleep 2
+echo "Touching uwsgi ini file"
 sudo touch socn_uwsgi.ini
 sleep 1
+echo "Starting supervisor"
 sudo service supervisor start
-sleep 2
+echo "Supervisor is started"
