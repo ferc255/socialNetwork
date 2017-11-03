@@ -10,3 +10,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+try:
+    from socn.settings.local import *
+except:
+    pass

@@ -1,3 +1,4 @@
 *.pyc
 py_part/socn/deployment/uwsgi_err.log
 env
+py_part/socn/socn/settings/local.py
