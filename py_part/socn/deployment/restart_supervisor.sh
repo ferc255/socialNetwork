@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Supervisor is been stopping..."
+echo "Supervisor is being stopping..."
 sudo service supervisor stop
 echo "Supervisor is stoped"
 sleep 2
