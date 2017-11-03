@@ -5,10 +5,10 @@ var http = require('http');
 
 var request = require('request');
 
-app.get('/', function(req, res) {
+app.get('/supergame', function(req, res) {
     res.sendFile(__dirname + '/client/index.html');
 });
-app.use('/client', express.static(__dirname + '/client'));
+app.use('/supergame/client', express.static(__dirname + '/client'));
 
 serv.listen(2000);
 console.log("Server started");

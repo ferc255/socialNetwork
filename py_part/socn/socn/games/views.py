@@ -28,7 +28,7 @@ def myapi(request, item):
         data = {'username': str(request.user)}
         #response = HttpResponse(json.dumps(data))
         response = JsonResponse(data)
-        response["Access-Control-Allow-Origin"] = "http://127.0.0.1:2000"
+        response["Access-Control-Allow-Origin"] = "http://tuna.com.ru:2000"
         response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
         response["Access-Control-Max-Age"] = "1000"
         response["Access-Control-Allow-Headers"] = "*"
