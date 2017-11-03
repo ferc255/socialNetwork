@@ -13,5 +13,5 @@ DATABASES = {
 
 try:
     from socn.settings.local import *
-except:
+except ImportError:
     pass
