@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,12 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '77i52f1z_6*y_6^#s!rd*u^-f_=+^k)pvck4k*9uvjab2xv21u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    'tuna.com.ru',
-    'www.tuna.com.ru',
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -83,12 +80,8 @@ WSGI_APPLICATION = 'socn.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'socn',
-        'USER': 'alexsql',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -129,7 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = '/home/aleksey/socialnetwork/py_part/socn/static/'
+STATIC_ROOT = '/home/aleksey/socialnetwork/py_part/socn/static/'
 
 MEDIA_ROOT = '/home/aleksey/socialnetwork/py_part/socn/media/'
 
@@ -149,7 +142,6 @@ LOGIN_EXEMPT_URLS = \
     r'^account/login/$',
     r'^account/register/$',
 ]
-
 
 STATICFILES_DIRS = \
 [
