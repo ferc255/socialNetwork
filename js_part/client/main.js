@@ -1,7 +1,7 @@
 var canv = document.getElementById("canv");
 var ctx = canv.getContext("2d");
 
-document.addEventListener("click", new_click);
+canv.addEventListener("click", new_click);
 
 function new_click()
 {
@@ -46,8 +46,8 @@ socket.on('fuck', function()
 socket.on('get_username', function(data, cb) ///////////// function() ???
 {
     $.ajax({
-        //url: 'http://tuna.com.ru/game/myapi_username/',
-        url: "http://127.0.0.1:8000/game/myapi_username/",
+        url: 'http://tuna.com.ru/game/myapi_username/',
+        //url: "http://127.0.0.1:8000/game/myapi_username/",
         xhrFields:
         {
             withCredentials: true
@@ -56,6 +56,12 @@ socket.on('get_username', function(data, cb) ///////////// function() ???
     .done(function(res) {        
         console.log(res);
         //socket.emit('username_result', {username: res['username']});
+        if (res['username'] == 'AnonymousUser')
+        {
+            console.log('anon');
+            window.location.replace('/account/login');
+            return;
+        }
         cb(res['username']);
     })
 });

@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/base.css">
+    <link rel="stylesheet" href="/connect4/client/canv.css">
+
+    <title>Aleks's Network</title>
+  </head>
+  <body>
+    <script type="text/javascript" src="/static/base.js"></script>
+    <div class="header-div">
+      <p class="header-p"><a class="header-a" href="/">A L E K S ' S</a></p>
+    </div>
+    
+    <div class="middle">
+      <div class="middle-left">
+        <div class="my-navbar">
+          <ul class="navbar-ul">
+            <li><a class="navbar-a" href="/messages">Messages</a></li>
+            <li><a class="navbar-a" href="/friends">Friends</a></li>
+              
+            <div class="dropdown">
+              <a class="navbar-a" onclick="myfunc(this)">
+                Profile<p style="float:right;" align="right">&#8711;</p>
+              </a>
+              <div class="dropdown-content">
+                <li><a style="display: block;" class="navbar-a"
+                       href="/account/profile">
+                    View</a>
+                </li>
+                <li><a style="display: block;" class="navbar-a"
+                       href="/account/profile/edit">
+                    Edit</a>
+                </li>
+              </div>
+            </div>
+
+            <div class="dropdown">
+              <a class="navbar-a" id="lah" onclick="myfunc(this)">
+                Connect 4<p style="float:right;" align="right">&#8711;</p>
+              </a>
+              <div class="dropdown-content">
+                <li><a style="display: block;" class="navbar-a"
+                       href="http://tuna.com.ru/connect4">
+                    Multiplayer</a>
+                </li>
+                <li><a style="display: block;" class="navbar-a"
+                       href="/game/ranklist">
+                    Ranklist</a>
+                </li>
+              </div>
+            </div>
+            <br><br><br><br>
+            <li><a class="navbar-a" href="/account/logout">
+                Log out</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="middle-right">
+        <canvas id="canv" width="500" height="500" style="border:1px solid #000000;"></canvas>
+      </div>
+  </body>
+</html>
+
+   
+
+<script
+   src="https://code.jquery.com/jquery-3.2.1.min.js"
+   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+   crossorigin="anonymous">
+</script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/connect4/client/main.js"></script>

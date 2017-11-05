@@ -6,7 +6,7 @@ var http = require('http');
 var request = require('request');
 
 app.get('/connect4', function(req, res) {
-    res.sendFile(__dirname + '/client/index_dev.html');
+    res.sendFile(__dirname + '/client/index.html');
 });
 app.use('/connect4/client', express.static(__dirname + '/client'));
 
