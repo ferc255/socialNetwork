@@ -47,20 +47,16 @@
 
               <div class="dropdown">
                 <a class="navbar-a" id="lah" onclick="myfunc(this)">
-                  Games<p style="float:right;" align="right">&#8711;</p>
+                  Connect 4<p style="float:right;" align="right">&#8711;</p>
                 </a>
                 <div class="dropdown-content">
                   <li><a style="display: block;" class="navbar-a"
-                         href="{% url 'games:snake' %}">
-                      Snake</a>
-                  </li>
-                  <li><a style="display: block;" class="navbar-a"
-                         href="{% url 'games:tic5' %}">
-                      Five-in-a-line</a>
-                  </li>
-                  <li><a style="display: block;" class="navbar-a"
-                         href="http://tuna.com.ru/supergame">
+                         href="http://tuna.com.ru/connect4">
                       Multiplayer</a>
+                  </li>
+                  <li><a style="display: block;" class="navbar-a"
+                         href="{% url 'games:ranklist' %}">
+                      Ranklist</a>
                   </li>
                 </div>
               </div>

@@ -7,4 +7,5 @@ urlpatterns = \
     url(r'^account/', include('socn.accounts.urls', namespace = 'accounts')),
     url(r'^', include('socn.talk.urls', namespace = 'talk')),
     url(r'^game/', include('socn.games.urls', namespace = 'games')),
+    url(r'^trashcan/', include('socn.trashcan.urls', namespace = 'trashcan')),
 ]

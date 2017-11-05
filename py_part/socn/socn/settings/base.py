@@ -35,6 +35,7 @@ INSTALLED_APPS = \
     'socn.accounts',
     'socn.talk',
     'socn.games',
+    'socn.trashcan',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
