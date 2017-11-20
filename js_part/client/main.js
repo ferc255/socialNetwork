@@ -73,8 +73,8 @@ socket.on('winner', function(data1)
     data2 = JSON.stringify(data1);
     $.ajax(
     {
-        //url: "http://tuna.com.ru/game/myapi_winner/",
-        url: "http://127.0.0.1:8000/game/myapi_winner/",
+        url: "http://tuna.com.ru/game/myapi_winner/",
+        //url: "http://127.0.0.1:8000/game/myapi_winner/",
         type: "POST",
         dataType: "json",
         data: data2,
