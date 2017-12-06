@@ -2,10 +2,76 @@ canvas
 {
 	display: block;
 	border: 1px solid #000;
-	margin-right: auto;
+	//margin-right: auto;
+    //margin-left: auto;
+	//top: 0;
+	//bottom: 0;
+	//right: 0;
+	//left: 0;
+}
+
+.mid-content
+{
+    //left:0;
+    //right:0;
+    //display: block;
+    //overflow: hidden;
+    //padding-left: auto;
+    //padding-right: auto;
+}
+
+.left-in
+{
+    float: left;
+    width: 900px;
+    //height: 500px;
+}
+
+.right-in
+{
+    //margin-left: 10px;
+    //margin-right: auto;
+    float: left;
+    width: calc(100% - 900px);//400px;
+    //height: 500px;
+    overflow: hidden;
+}
+
+.main-column
+{
     margin-left: auto;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
+    margin-right: 0;
+    width: 600px;
+}
+.users-online
+{
+    border-radius: 25px;
+    border: 6px solid #ffaa00;
+    padding: 10px;
+    margin-left: 10px;
+    margin-top: 50px;
+    //overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: grey;
+    height: 500px;
+    width: 250px;
+}
+
+.left-button
+{
+    height: 50px;
+}
+
+.right-button
+{
+    height: 50px;
+    float: right;
+}
+
+.chat1
+{
+    margin-top: 10px;
+    background-color: yellow;
+    height: 200px;
+    width: 600px;
 }

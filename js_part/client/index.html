@@ -5,13 +5,15 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/static/base.css">
+    <!--<link rel="stylesheet" href="/static/base.css">-->
+    <link rel="stylesheet" href="/connect4/client/base.css">
     <link rel="stylesheet" href="/connect4/client/canv.css">
 
     <title>Aleks's Network</title>
   </head>
   <body>
-    <script type="text/javascript" src="/static/base.js"></script>
+    <!--<script type="text/javascript" src="/static/base.js"></script>-->
+    <script type="text/javascript" src="/connect4/client/base.js"></script>
     <div class="header-div">
       <p class="header-p"><a class="header-a" href="/">A L E K S ' S</a></p>
     </div>
@@ -63,7 +65,24 @@
       </div>
 
       <div class="middle-right">
-        <canvas id="canv" width="500" height="500" style="border:1px solid #000000;"></canvas>
+        <div class="mid-content">
+          <div class="left-in" style="background-color: red;">
+            <div class="main-column">
+              <button class="left-button">Take this seat</button>
+              <button class="right-button">Take this seat</button>
+              <canvas id="canv" width="600" height="500" style="border:1px solid #000000;"></canvas>
+              <div class="chat1">
+                fuck
+              </div>
+            </div>
+          </div>
+          <div class="right-in" style="background-color: blue;">
+            <div class="users-online">
+              ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            </div>
+          </div>
+        </div>
+        
       </div>
   </body>
 </html>

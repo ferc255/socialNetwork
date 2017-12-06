@@ -1,0 +1,161 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+.header-p
+{
+    text-align: center;
+    font-family: Times;
+    font-size: 40px;
+    
+    
+}
+.header-a
+{
+    color: #ffaa00;
+    text-decoration: none;
+}
+
+.header-div
+{
+    background-color: black;
+    padding: 0;
+    margin:0;
+}
+
+
+
+.navbar-a
+{      
+    //margin: 10px;
+        color: black;
+        display: block;
+        text-decoration: none;
+        padding: 10px 20px;
+        cursor: pointer;
+}
+
+.navbar-a:hover
+{
+    background-color: #FF4400;
+    color: white;
+}
+
+.navbar-ul
+{
+    overflow: hidden;        
+    list-style-type: none;
+    //background-color: blue;
+}
+
+.middle
+{
+    overflow: hidden;
+    margin-top: 10px;
+    //background-color: #CCCCCC;
+}
+
+.middle-left
+{
+    width: 200px;
+    float: left;
+    //background-color: green;
+}
+
+.my-navbar
+{
+    background-color: #ffaa00;
+    border-radius: 0px 10px 10px 0px;    
+}
+
+.middle-right
+{
+    float: left;
+    width: calc(100% - 300px);
+    //padding-top: 0;
+    margin-left: 20px;
+    padding-left: 10px;
+    padding-right: 20px;
+    //background-color: brown;
+    //display: table-cell;
+}
+
+.footer
+{
+    padding: 40px;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 90px;
+    margin-top: 20px;
+    //border-radius: 5px;
+    text-align: center;
+    background-color: #ff4400;//grey;
+}
+
+.dropdown:hover //.dropdown-content
+{
+    //background-color: #ff4400;
+      
+}
+
+.dropdown
+{
+    display:inline-block;
+    position: relative;
+    width: 100%
+}
+
+.dropbtn
+{
+    cursor: pointer;
+}
+
+.dropdown-content
+{
+    display: none;
+    box-shadow: 0px 8px 16px 0px rgba(F, F, F, 5);
+    z-index: 1;
+    
+    background-color: #FF4400;
+    position: absolute;
+    //left: 90%;
+    width: 200px;
+}
+
+.dropdown-content2
+{
+    border: 2px solid black;
+    display: block;
+    box-shadow: 0px 8px 16px 0px rgba(F, F, F, 5);
+    z-index: 1;
+    
+    background-color: #FF4400;
+    border: 20px solid black
+    position: absolute;
+    //left: 90%;
+    width: 200px;
+}
+
+.navbar-b
+{      
+    //margin: 10px;
+        background-color: black;
+        color: white;
+        display: block;
+        text-decoration: none;
+        padding: 10px 20px;
+}
+.navbar-c
+{      
+    //margin: 10px;
+        color: green;
+        display: block;
+        text-decoration: none;
+        padding: 10px 20px;
+}
+
