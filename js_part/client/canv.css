@@ -1,6 +1,6 @@
-canvas
+svg
 {
-	display: block;
+	//display: block;
 	border: 1px solid #000;
 	//margin-right: auto;
     //margin-left: auto;
@@ -43,17 +43,20 @@ canvas
     margin-right: 0;
     width: 600px;
 }
-.users-online
+
+#users-online
 {
-    border-radius: 25px;
-    border: 6px solid #ffaa00;
+    border-radius: 5px;
+    border: 3px solid #ffaa00;
     padding: 10px;
+    //margin-right: -100px;
     margin-left: 10px;
     margin-top: 50px;
-    //overflow-y: scroll;
+    //overflow: hidden;
+    overflow-y: auto;
     overflow-x: hidden;
     background-color: grey;
-    height: 500px;
+    height: 100px;//500px;
     width: 250px;
 }
 
@@ -68,10 +71,22 @@ canvas
     float: right;
 }
 
-.chat1
+#chat-window
 {
+    padding: 10px;
     margin-top: 10px;
     background-color: yellow;
-    height: 200px;
-    width: 600px;
+    height: 100px;
+    overflow-y: auto;
+}
+
+#chat-input
+{
+    width: 500px;
+    height: 30px;
+}
+
+#chat-button
+{
+    width: 80px;
 }

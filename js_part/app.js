@@ -13,196 +13,75 @@ app.use('/connect4/client', express.static(__dirname + '/client'));
 serv.listen(2000);
 console.log("Server started");
 
-
-
-
-
-
 /////////////////////////////////////////////
 
-var socket_list = [];
 var idx = 0;
-
-function mypr(data)
-{
-    console.log(data.length);
-    for (var it in data)
-    {
-        console.log(it, data[it].id);
-    }
-    console.log('---------------------');
-}
-
-function allEmit()
-{
-    temp = [];
-    for (var i in socket_list)
-    {
-        temp.push(
-        {
-            username: socket_list[i].username,
-            score: socket_list[i].score,
-        });
-    }
-    data = {'users': temp};
-    
-    for (var i in socket_list)
-    {
-        socket_list[i].emit('draw', data);
-    }
-}
-
+var socketList = [];
 
 
 var io = require('socket.io')(serv, {});
 io.sockets.on('connection', function(socket)
 {
-    //console.log('new_connection');
     socket.emit('get_username', {}, function(result)
     {
-        console.log('ajax result = ', result);
         socket.username = result;
-
-        socket.secret_phrase = 'django_the_best';
-        socket.id = idx++;
         socket.score = 0;
-        socket_list.push(socket);
-
-        temp = []
-        for (var i in socket_list)
+        socket.id = idx++;
+        if (!socketList[socket.username])
         {
-            temp.push(socket_list[i].username)
+            socketList[socket.username] = [];
         }
+        socketList[socket.username].push(socket);
 
-        //console.log('temp =', temp);
-        allEmit();
-    });         
-
-    socket.on('new_point', function()
-    {
-        socket.score++;
-        if (socket.score == 5)
-        {
-            if (socket.username != "AnonymousUser")
-            {
-                socket.emit('winner', {username: socket.username});
-            }
-            for (var i in socket_list)
-            {
-                socket_list[i].score = 0;
-            }
-        }
-        allEmit();
+        updateUsersList();
     });
 
-
-
-
-
-
+    socket.on('newChatMsg', function(data)
+    {        
+        var message = '<b>' + data['username'] + '</b>: ' + data['text'];
+        allEmit('addToChat', message);
+    });
         
     socket.on('disconnect', function()
     {
-        for (var i in socket_list)
+        for (var i in socketList)
         {
-            if (socket_list[i].id == socket.id)
+            for (var j in socketList[i])
             {
-                socket_list.splice(i, 1);
+                if (socketList[i][j].id == socket.id)
+                {
+                    socketList[i].splice(j, 1);
+                }
             }
         }
 
-        allEmit();
+        updateUsersList();
     }); 
 });
 
 
-
-
-    
-/*
-    socket.on('happy', function()
+function allEmit(message, data)
+{
+    for (var i in socketList)
     {
-        console.log('happy');
-
-        var mydata =
+        for (var j in socketList[i])
         {
-            reque: 'slice'
+            socketList[i][j].emit(message, data);
         }
-        var url = 'http://127.0.0.1:8000/myapi'
-        var options =
-        {
-            method: 'post',
-            body: mydata,
-            json: true,
-            url: url
-        };
-
-        //console.log(window.document.cookie);
-
-        request(options, function(err, res, body)    //err, res, body)
-        {
-            console.log(res.body['resp'] + 4);
-        });
-    });
-    
-    
-});
-
-*/
-
-/*
-var express = require('express');
-var app = express();
-var serv = require('http').Server(app);
-
-app.get('/',function(req, res) {
-    res.sendFile(__dirname + '/client/index.html');
-});
-app.use('/client',express.static(__dirname + '/client'));
-
-serv.listen(2000);
-console.log("Server started.");
-
-var SOCKET_LIST = {};
-
-var io = require('socket.io')(serv,{});
-io.sockets.on('connection', function(socket){
-    socket.id = Math.random();
-    socket.x = 0;
-    socket.y = 0;
-    socket.number = "" + Math.floor(10 * Math.random());
-    SOCKET_LIST[socket.id] = socket;
-    
-
-
-    socket.on('disconnect',function(){
-        delete SOCKET_LIST[socket.id];
-    });
-
-});
-
-    socket.emit('fuck', {a: Math.floor(Math.random() * 10)});
-
-setInterval(function(){
-    var pack = [];
-    for(var i in SOCKET_LIST){
-        var socket = SOCKET_LIST[i];
-        socket.x++;
-        socket.y++;
-        pack.push({
-            x:socket.x,
-            y:socket.y,
-            number:socket.number
-        });
     }
-    for(var i in SOCKET_LIST){
-        var socket = SOCKET_LIST[i];
-        socket.emit('newPositions',pack);
+}
+
+
+function updateUsersList()
+{    
+    usersOnline = [];
+    for (var i in socketList)
+    {
+        if (socketList[i].length > 0)
+        {
+            usersOnline.push(i);
+        }
     }
 
-
-
-
-},1000/25);
-
-*/
+    allEmit('updateUsersList', usersOnline);
+}
