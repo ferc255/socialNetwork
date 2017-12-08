@@ -1,39 +1,24 @@
-svg
+#canv
 {
-	//display: block;
-	border: 1px solid #000;
-	//margin-right: auto;
-    //margin-left: auto;
-	//top: 0;
-	//bottom: 0;
-	//right: 0;
-	//left: 0;
+    margin-top: 10px;
+    border-radius: 5px;
+	border: 2px solid black;//#ffaa00;
 }
 
 .mid-content
 {
-    //left:0;
-    //right:0;
-    //display: block;
-    //overflow: hidden;
-    //padding-left: auto;
-    //padding-right: auto;
 }
 
 .left-in
 {
     float: left;
     width: 900px;
-    //height: 500px;
 }
 
 .right-in
 {
-    //margin-left: 10px;
-    //margin-right: auto;
     float: left;
     width: calc(100% - 900px);//400px;
-    //height: 500px;
     overflow: hidden;
 }
 
@@ -41,52 +26,59 @@ svg
 {
     margin-left: auto;
     margin-right: 0;
-    width: 600px;
+    width: 604px;
 }
 
 #users-online
 {
     border-radius: 5px;
-    border: 3px solid #ffaa00;
+    border: 2px solid black;
     padding: 10px;
-    //margin-right: -100px;
     margin-left: 10px;
     margin-top: 50px;
-    //overflow: hidden;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: grey;
-    height: 100px;//500px;
-    width: 250px;
+    background-color: #dddddd;
+    height: 504px;
+    width: 200px;
 }
 
-.left-button
+#right-button
 {
-    height: 50px;
-}
-
-.right-button
-{
-    height: 50px;
     float: right;
+}
+
+.take-button
+{
+    display: none;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
 }
 
 #chat-window
 {
+    border-radius: 5px;
     padding: 10px;
     margin-top: 10px;
-    background-color: yellow;
+    background-color: #ffaa00;
     height: 100px;
     overflow-y: auto;
+    border: 2px solid black;
 }
 
 #chat-input
 {
     width: 500px;
     height: 30px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
 }
 
 #chat-button
 {
-    width: 80px;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 5px;
 }

@@ -17,11 +17,12 @@ console.log("Server started");
 
 var idx = 0;
 var socketList = [];
-
+var curPlayers = {'red': '', 'green': ''};
 
 var io = require('socket.io')(serv, {});
 io.sockets.on('connection', function(socket)
 {
+    
     socket.emit('get_username', {}, function(result)
     {
         socket.username = result;
@@ -34,14 +35,10 @@ io.sockets.on('connection', function(socket)
         socketList[socket.username].push(socket);
 
         updateUsersList();
+        setLabels();
     });
 
-    socket.on('newChatMsg', function(data)
-    {        
-        var message = '<b>' + data['username'] + '</b>: ' + data['text'];
-        allEmit('addToChat', message);
-    });
-        
+    
     socket.on('disconnect', function()
     {
         for (var i in socketList)
@@ -55,8 +52,25 @@ io.sockets.on('connection', function(socket)
             }
         }
 
+        for (var color in curPlayers)
+        {
+            if (curPlayers[color] == socket.username)
+            {
+                curPlayers[color] = '';
+                setLabels();
+            }
+        }
+
         updateUsersList();
-    }); 
+    });
+
+    socket.on('newChatMsg', function(data)
+    {        
+        var message = '<b>' + data['username'] + '</b>: ' + data['text'];
+        allEmit('addToChat', message);
+    });
+        
+    socket.on('pressed', pressedButton);
 });
 
 
@@ -67,6 +81,84 @@ function allEmit(message, data)
         for (var j in socketList[i])
         {
             socketList[i][j].emit(message, data);
+        }
+    }
+}
+
+
+function pressedButton(data)
+{
+    var cur = data['color'];
+    var secon = cur == 'red' ? 'green' : 'red';
+   
+    if (curPlayers[cur] == '')
+    {
+        curPlayers[cur] = data['username'];
+        if (curPlayers[secon] == data['username'])
+        {
+            curPlayers[secon] = '';
+        }
+    }
+    else
+    {
+        curPlayers[cur] = '';
+    }
+
+    setLabels();
+}
+
+
+function setLabels()
+{
+    var response = {'': {'red': {}, 'green': {}}};
+    for (var pos in curPlayers)
+    {
+        response[curPlayers[pos]] = {'red': {}, 'green': {}};
+    }
+    
+    for (var pos in curPlayers)
+    {
+        if (curPlayers[pos] == '')
+        {
+            for (var user in response)
+            {
+                response[user][pos].type = 'take';
+                response[user][pos].display = 'inline-block';
+
+                response[user][pos].label = '     * * *';
+            }            
+        }
+        else
+        {
+            for (var user in response)
+            {
+                if (user == curPlayers[pos])
+                {
+                    response[user][pos].type = 'stand';
+                    response[user][pos].display = 'inline-block';
+                }
+                else
+                {
+                    response[user][pos].display = 'none';
+                }
+
+                response[user][pos].label = curPlayers[pos];
+            }
+        }
+    }
+
+    for (var user in socketList)
+    {
+        for (var i in socketList[user])
+        {
+            if (user in response)
+            {
+                socketList[user][i].emit('updateHeader', response[user]);  
+            }
+            else
+            {
+                socketList[user][i].emit('updateHeader', response['']);
+            }
         }
     }
 }
