@@ -13,6 +13,38 @@ socket.on('addToChat', function(data)
 });
 
 
+socket.on('draw', function(data)
+{
+    ctx.fillStyle = 'black';
+    ctx.fillRect(90, 90, 420, 390);
+
+    ctx.fillStyle = '#ddffdd';
+    ctx.fillRect(90, 450, 420, 2);
+
+    for (var i = 0; i < 7; i++)
+    {
+        for (var j = 0; j < 6; j++)
+        {
+            if (data.grid[i][j] == 'empty')
+            {
+                ctx.fillStyle = '#ddffdd';
+            }
+            else
+            {
+                ctx.fillStyle = data.grid[i][j];
+            }
+            ctx.beginPath();
+            ctx.arc(90 + i * 60 + 30, 90 + j * 60 + 30, 25, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.fill();
+        }
+    }    
+
+    ctx.fillStyle = data.color;
+    ctx.fillText(data.label, 220, 90 + 360 + 22); 
+});
+
+
 socket.on('exitUser', function(username)
 {
     jQuery('#' + username).remove();
@@ -102,18 +134,16 @@ socket.on('updateUsersList', function(users)
 });
 
 
-socket.on('winner', function(data1)
+socket.on('winner', function(dict)
 {
-    console.log(JSON.stringify(data1));
-    data2 = JSON.stringify(data1);
     $.ajax(
     {
         //url: "http://tuna.com.ru/game/myapi_winner/",
         url: "http://127.0.0.1:8000/game/myapi_winner/",
         type: "POST",
         dataType: "json",
-        data: data2,
-        contentType: "text/plain",//"application/json",
+        data: JSON.stringify(dict),
+        contentType: "text/plain", // important!
         xhrFields:
         {
             withCredentials: true,
@@ -126,7 +156,22 @@ socket.on('winner', function(data1)
     });
 });
 
-      
+
+jQuery('#canv').click(function(e)
+{
+    var x = e.pageX - canv.offsetLeft;
+    var cx = Math.floor((x - 90) / 60);
+
+    if (cx < 0 || cx >= 7) return;
+
+    var data =
+    {
+        username: username,
+        x: cx,
+    };
+    socket.emit('move', data);
+});
+
 jQuery("#chat-input").keypress(function(e)
 {
     return submitChatMessage(e.which);
@@ -196,34 +241,40 @@ var ctx = canv.getContext('2d');
 var height = canv.height;
 var width = canv.width;
 
-var backgroundPhoto = new Image();
-backgroundPhoto.src = '/connect4/client/beach.png';
-ctx.drawImage(backgroundPhoto, 0, 0);
-
-ctx.fillStyle = '#ffaa00';
-ctx.fillRect(0, 0, width, 40);
+main();
 
 
-ctx.fillStyle = 'red';
-ctx.beginPath();
-ctx.arc(20, 20, 5, 0, 2 * Math.PI);
-ctx.closePath();
-ctx.fill();
+function main()
+{
 
-ctx.fillStyle = 'black';
-ctx.font = "20px Arial";
-ctx.fillText("     * * *", 30, 27);
+    var backgroundPhoto = new Image();
+    backgroundPhoto.src = '/connect4/client/beach.png';
+    ctx.drawImage(backgroundPhoto, 0, 0);
 
-ctx.fillStyle = 'green';
-ctx.beginPath();
-ctx.arc(440, 20, 5, 0, 2 * Math.PI);
-ctx.closePath();
-ctx.fill();
+    ctx.fillStyle = '#ffaa00';
+    ctx.fillRect(0, 0, width, 40);
 
-ctx.fillStyle = 'black';
-ctx.font = "20px Arial";
-ctx.fillText("     * * *", 450, 27);
 
+    ctx.fillStyle = 'red';
+    ctx.beginPath();
+    ctx.arc(20, 20, 5, 0, 2 * Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = 'black';
+    ctx.font = "20px Arial";
+    ctx.fillText("     * * *", 30, 27);
+
+    ctx.fillStyle = 'green';
+    ctx.beginPath();
+    ctx.arc(440, 20, 5, 0, 2 * Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = 'black';
+    ctx.font = "20px Arial";
+    ctx.fillText("     * * *", 450, 27);
+}
 
 
 function submitChatMessage(code)

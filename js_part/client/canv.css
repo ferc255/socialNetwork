@@ -1,6 +1,12 @@
+body
+{
+    min-width: 1900px;
+    overflow: auto;
+}
+
 #canv
 {
-    margin-top: 10px;
+    margin-top: 50px;
     border-radius: 5px;
 	border: 2px solid black;//#ffaa00;
 }

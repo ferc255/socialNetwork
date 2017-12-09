@@ -18,11 +18,16 @@ console.log("Server started");
 var idx = 0;
 var socketList = [];
 var curPlayers = {'red': '', 'green': ''};
+var grid;
+var filled;
+var curMove;
+var opposite = {'red': 'green', 'green': 'red'};
+var dirx = [1, 1, 1, 0];
+var diry = [-1, 0, 1, 1];
 
 var io = require('socket.io')(serv, {});
 io.sockets.on('connection', function(socket)
-{
-    
+{    
     socket.emit('get_username', {}, function(result)
     {
         socket.username = result;
@@ -64,6 +69,28 @@ io.sockets.on('connection', function(socket)
         updateUsersList();
     });
 
+    socket.on('move', function(data)
+    {
+        if (curPlayers[curMove] != data.username ||
+            filled[data.x] == 6 || checkWon()) return;
+        
+        grid[data.x][6 - filled[data.x]++ - 1] = curMove;
+        
+
+        if (checkWon())
+        {
+            socket.emit('winner', {'username': curPlayers[curMove]});
+            prepareDrawing(curPlayers[curMove].slice(0, 10) + " won!",
+                           curMove);
+        }
+        else
+        {
+            curMove = opposite[curMove];
+            prepareDrawing(curPlayers[curMove].slice(0, 10) + "'s move",
+                           curMove);
+        }
+    });
+
     socket.on('newChatMsg', function(data)
     {        
         var message = '<b>' + data['username'] + '</b>: ' + data['text'];
@@ -86,10 +113,74 @@ function allEmit(message, data)
 }
 
 
+function checkWon()
+{
+    for (var i = 0; i < 7; i++)
+    {
+        for (var j = 0; j < 6; j++)
+        {
+            for (var k = 0; k < 4; k++)
+            {
+                var line = 0;
+                var color = '';
+                for (var z = 0; z < 4; z++)
+                {
+                    var x = i + dirx[k] * z;
+                    var y = j + diry[k] * z;
+                    if (x >= 0 && x < 7 && y >= 0 && y < 6 &&
+                        grid[x][y] != 'empty' &&
+                       (color == '' || color == grid[x][y]))
+                    {
+                        color = grid[x][y];
+                        line++;                        
+                    }
+                    else
+                    {
+                        break;
+                    }                        
+                }
+
+                if (line == 4)
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+
+function clearGrid()
+{
+    grid = new Array(7);
+    for (var i = 0; i < 7; i++)
+    {
+        grid[i] = (new Array(6)).fill('empty');
+    }
+    filled = new Array(7).fill(0);
+    curMove = 'red';
+}
+
+
+function prepareDrawing(label, color)
+{
+    var data =
+    {
+        color: color,
+        label: label,
+        grid: grid,
+    }
+
+    allEmit('draw', data);
+}
+
+
 function pressedButton(data)
 {
     var cur = data['color'];
-    var secon = cur == 'red' ? 'green' : 'red';
+    var secon = opposite[cur];
    
     if (curPlayers[cur] == '')
     {
@@ -105,6 +196,13 @@ function pressedButton(data)
     }
 
     setLabels();
+
+    if (curPlayers['red'] != '' && curPlayers['green'] != '')
+    {
+        clearGrid();
+        prepareDrawing(curPlayers[curMove].slice(0, 10) + "'s move",
+                       curMove);
+    }
 }
 
 
