@@ -172,6 +172,52 @@ jQuery('#canv').click(function(e)
     socket.emit('move', data);
 });
 
+
+jQuery('#canv').mousemove(function(e)
+{
+    if (jQuery('#left-button').css('display') != 'none' &&
+        jQuery('#left-button').attr('type') == 'take' ||
+        jQuery('#right-button').css('display') != 'none' &&
+        jQuery('#right-button').attr('type') == 'take')
+        return;
+
+    
+    
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'black';
+    for (var i = 0; i < 7; i++)
+    {
+        for (var j = 0; j < 6; j++)
+        {
+            ctx.beginPath();
+            ctx.arc(90 + i * 60 + 30, 90 + j * 60 + 30, 28, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.stroke();
+        }
+    }
+
+    var x = e.pageX - canv.offsetLeft;
+    var cx = Math.floor((x - 90) / 60);
+
+    if (cx < 0 || cx >= 7)
+    {
+        jQuery(this).css('cursor', 'default');
+        return;
+    }
+
+    jQuery(this).css('cursor', 'pointer');
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#ffaa00';
+    for (var j = 0; j < 6; j++)
+    {
+        ctx.beginPath();
+        ctx.arc(90 + cx * 60 + 30, 90 + j * 60 + 30, 28, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.stroke();        
+    }
+    
+});
+
 jQuery("#chat-input").keypress(function(e)
 {
     return submitChatMessage(e.which);
@@ -232,8 +278,6 @@ jQuery('.take-button').click(function()
    
         
 
-var TAKE = 2;
-
 
 var username;
 var canv = jQuery('#canv')[0];
@@ -241,39 +285,44 @@ var ctx = canv.getContext('2d');
 var height = canv.height;
 var width = canv.width;
 
+
+//setTimeout(main, 2000);
 main();
 
 
 function main()
 {
-
+    console.log('ha');
     var backgroundPhoto = new Image();
     backgroundPhoto.src = '/connect4/client/beach.png';
-    ctx.drawImage(backgroundPhoto, 0, 0);
+    setTimeout(function()
+    {
+        ctx.drawImage(backgroundPhoto, 0, 0);
+        
+        ctx.fillStyle = '#ffaa00';
+        ctx.fillRect(0, 0, width, 40);
 
-    ctx.fillStyle = '#ffaa00';
-    ctx.fillRect(0, 0, width, 40);
 
+        ctx.fillStyle = 'red';
+        ctx.beginPath();
+        ctx.arc(20, 20, 5, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.fill();
 
-    ctx.fillStyle = 'red';
-    ctx.beginPath();
-    ctx.arc(20, 20, 5, 0, 2 * Math.PI);
-    ctx.closePath();
-    ctx.fill();
+        ctx.fillStyle = 'black';
+        ctx.font = "20px Arial";
+        ctx.fillText("     * * *", 30, 27);
 
-    ctx.fillStyle = 'black';
-    ctx.font = "20px Arial";
-    ctx.fillText("     * * *", 30, 27);
+        ctx.fillStyle = 'green';
+        ctx.beginPath();
+        ctx.arc(440, 20, 5, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.fill();
 
-    ctx.fillStyle = 'green';
-    ctx.beginPath();
-    ctx.arc(440, 20, 5, 0, 2 * Math.PI);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.fillStyle = 'black';
-    ctx.font = "20px Arial";
-    ctx.fillText("     * * *", 450, 27);
+        ctx.fillStyle = 'black';
+        ctx.font = "20px Arial";
+        ctx.fillText("     * * *", 450, 27);
+    }, 200);
 }
 
 
